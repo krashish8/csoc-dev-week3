@@ -123,3 +123,11 @@ STATIC_URL = '/static/'
 STATIC_ROOT=os.path.join(BASE_DIR,'staticfiles/')
 LOGIN_REDIRECT_URL='/'
 LOGOUT_REDIRECT_URL = '/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "authentication/static"),
+]
+
+from django.contrib.messages import constants as messages
+MESSAGE_TAGS = {
+    messages.ERROR: 'danger'
+}

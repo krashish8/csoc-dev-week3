@@ -1,4 +1,5 @@
 {% extends "store/base.html" %}
+{% load custom_temp %}
 
 {% block title %}
 <title>
@@ -32,6 +33,10 @@
         <th scope="col">Genre</th>
         <th scope="col">Rating</th>
         <th scope="col">MRP</th>
+        {% if user.is_authenticated %}
+        <th scope="col">Rated By You</th>
+        <th scope="col"> </th>
+        {% endif %}
         </tr>
     </thead>
     <tbody>
@@ -41,8 +46,12 @@
         <td><a href="/book/{{book.id}}">{{book.title}}</a></td>
         <td>{{book.author}}</td>
         <td>{{book.genre}}</td>
-        <td>{{book.rating}}</td>
+        <td>{{book.rating|floatformat:2}}</td>
         <td>{{book.mrp}}</td>
+        {% if user.is_authenticated %}
+        <td><input type="text" name="rating{{book.id}}" size="10" maxlength="2" id="rating{{book.id}}" value="{{ rating|get_item:book.id }}"></td>
+        <td><button id="submit{{book.id}}" class="btn btn-primary submit" onclick="submitClick({{book.id}})">Submit</button></td>
+        {% endif %}
         </tr>
         {% endfor %}
     </tbody>
@@ -67,6 +76,30 @@ $("#search_button").click(function(){
     }
     window.location.replace(final_url);
 });
+
+function submitClick(book_id) {
+    var book_rating = $('#rating'+book_id).val();
+    if (isNaN(book_rating) || !/^\d+$/.test(book_rating) || parseInt(book_rating) < 0 || parseInt(book_rating) > 10) {
+        alert("Please enter an integer between 0 and 10 (inclusive)");
+    }
+    else {
+        $.ajax({
+            url:"{% url 'book-list' %}",
+            method:"POST",
+            data:{
+                bid: book_id,
+                rating: book_rating,
+            },
+            success: function() {
+                alert("Book successfully rated.");
+                location.reload();
+            },
+            error: function() {
+                alert("Some error occured");
+            }
+        })
+    }
+}
 
 </script>
 {% endblock %}

@@ -15,10 +15,16 @@ class Book(models.Model):
 
 class BookCopy(models.Model):
     book=models.ForeignKey(Book,on_delete=models.CASCADE)
-    borrow_date=models.DateField(null=True)
+    borrow_date=models.DateField(null=True, blank=True)
     # 1 means available for issue, 0 means not
     status=models.BooleanField(default=False)
-    borrower=models.ForeignKey(User,related_name='borrower',null=True,on_delete=models.SET_NULL)
+    borrower=models.ForeignKey(User,related_name='borrower',null=True,blank=True,on_delete=models.SET_NULL)
     def __str__(self):
         return f'{self.book.title} , {str(self.borrow_date)}'
 
+class BookRating(models.Model):
+    book = models.ForeignKey(Book, on_delete=models.CASCADE)
+    rating = models.IntegerField(default=0)
+    rated_by = models.ForeignKey(User,null=True,blank=True,on_delete=models.SET_NULL)
+    def __str__(self):
+        return f'{self.book.title}, Rating: {self.rating}, {self.rated_by}'

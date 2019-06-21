@@ -1,0 +1,77 @@
+{% extends "store/base.html" %}
+{% load static %}
+{% block title %}
+<title>Login | Library</title>
+<link rel="stylesheet" href="{% static 'style.css' %}">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-6">
+            <form method="post" action="{% url 'login' %}">
+                {% csrf_token %}
+                <div class="col-sm-12" style="margin-top: 10px;">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title text-center" style="color: #444; margin-bottom: 0;">
+                                <b>LOGIN</b>
+                            </h4>
+                        </div>
+                        <div class="card-block form-group">
+                            <div class="row" style="margin: 10px; margin-top: 20px;">
+                                <div class="col-sm-12">
+                                    {% if messages %}                              
+                                    {% for message in messages %}
+                                    <div class="message">
+                                        <div class="alert alert-{{message.tags}} alert-dismissible text-center" role="alert">
+                                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                            {{message}}
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="row" style="margin: 10px;">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label for="username"><strong>Username:</strong>&nbsp;<span
+                                                style="color: red">*</span></label>
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">&nbsp;<i class="fa fa-user"></i></span>
+                                            <input type="text" class="form-control" id="username" name="username"
+                                                placeholder="Enter your Username" required>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" style="margin: 10px;">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label for="password"><strong>Password:</strong>&nbsp;<span
+                                                style="color: red">*</span></label>
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fa fa-key"></i></span>
+                                            <input type="password" class="form-control" id="password" name="password"
+                                            placeholder="Enter Your Password" required>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" style="margin: 10px;">
+                                <div class="col-sm-12">
+                                    <button type="submit" class="btn btn-primary btn-block">Login</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

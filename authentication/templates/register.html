@@ -1,0 +1,123 @@
+{% extends "store/base.html" %}
+{% load static %}
+{% block title %}
+<title>Register | Library</title>
+<link rel="stylesheet" href="{% static 'style.css' %}">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-sm-1"></div>
+        <div class="col-sm-8">
+            <form method="post" action="{% url 'register' %}">
+                {% csrf_token %}
+                <div class="col-sm-12" style="margin-top: 10px;">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title text-center" style="color: #444; margin-bottom: 0;">
+                                <b>REGISTER</b>
+                            </h4>
+                        </div>
+                        <div class="card-block form-group">
+                            <div class="row" style="margin: 10px; margin-top: 20px;">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="first_name"><strong>First Name:</strong>&nbsp;<span
+                                                style="color: red">*</span></label>
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">&nbsp;<i class="fa fa-user"></i></span>
+                                            <input type="text" class="form-control" id="first_name" name="first_name"
+                                                placeholder="Enter your First Name" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="last_name"><strong>Last Name:</strong>
+                                                </label>
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">&nbsp;<i class="fa fa-user"></i></span>
+                                            <input type="text" class="form-control" id="last_name" name="last_name"
+                                                placeholder="Enter your Last Name">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" style="margin: 10px;">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="username"><strong>Username:</strong>&nbsp;<span
+                                                style="color: red">*</span></label>
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">&nbsp;<i class="fa fa-user"></i></span>
+                                            <input type="text" class="form-control" id="username" name="username"
+                                                placeholder="Enter your Username" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="email"><strong>Email:</strong>&nbsp;<span
+                                                style="color: red">*</span></label>
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fa fa-envelope"></i></span>
+                                            <input type="email" class="form-control" id="email" name="email"
+                                                placeholder="Enter your Email address" required>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" style="margin: 10px;">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="password"><strong>Password:</strong>&nbsp;<span
+                                                style="color: red">*</span></label>
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fa fa-key"></i></span>
+                                            <input type="password" class="form-control" id="password" name="password"
+                                            placeholder="Enter Your Password" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="password"><strong>Password (again):</strong>&nbsp;<span
+                                                style="color: red">*</span></label>
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fa fa-key"></i></span>
+                                            <input type="password" class="form-control" id="password2" name="password2"
+                                            placeholder="Confirm your password" required>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" style="margin: 10px;">
+                                <div class="col-sm-12">
+                                    {% if messages %}                              
+                                    {% for message in messages %}
+                                    <div class="message">
+                                        <div class="alert alert-{{message.tags}} alert-dismissible text-center" role="alert">
+                                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                            {{message}}
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="row" style="margin: 10px;">
+                                <div class="col-sm-12">
+                                    <button type="submit" class="btn btn-primary btn-block">Register</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

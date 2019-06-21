@@ -2,6 +2,19 @@
 
 
 {% block content %}
-
+{% if messages %}                              
+{% for message in messages %}
+<div class="row">
+    <div class="col-sm-7">
+        <div class="message">
+            <div class="alert alert-{{message.tags}} alert-dismissible text-center" role="alert">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                {{message}}
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+{% endif %}
 <h3>Welcome to the library. This is your homepage.</h3>
 {% endblock %}
