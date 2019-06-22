@@ -35,7 +35,20 @@ def bookListView(request):
     }
     get_data=request.GET
     # START YOUR CODE HERE
-    context['books'] = Book.objects.all()
+    books = Book.objects.all()
+    try:
+        books = books.filter(title__icontains=get_data['title'])
+    except:
+        pass
+    try:
+        books = books.filter(author__icontains=get_data['author'])
+    except:
+        pass
+    try:
+        books = books.filter(genre__icontains=get_data['genre'])
+    except:
+        pass
+    context['books'] = books
 
     # Rating System
     if request.user.is_authenticated:
